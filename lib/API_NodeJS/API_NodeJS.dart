@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, file_names, import_of_legacy_library_into_null_safe, unused_import, deprecated_member_use, unused_local_variable, non_constant_identifier_names, duplicate_import
+// ignore_for_file: avoid_print, file_names, import_of_legacy_library_into_null_safe, unused_import, deprecated_member_use, unused_local_variable, non_constant_identifier_names, duplicate_import, prefer_typing_uninitialized_variables
 
 import 'dart:convert';
 import 'dart:ffi';
@@ -17,7 +17,7 @@ upload_image(File imageFile, String empName, String empId) async {
     var stream = http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
     var length = await imageFile.length();
 
-    var uri = Uri.parse("http://192.168.29.30:7091/api/employee_services");
+    var uri = Uri.parse("http://192.168.0.221:7091/api/employee_services");
 
     var request = http.MultipartRequest("POST", uri);
     request.fields["empName"] = empName;
@@ -29,26 +29,33 @@ upload_image(File imageFile, String empName, String empId) async {
 
     var response = await request.send();
     print(response.statusCode);
-
-    response.stream.transform(utf8.decoder).listen((value) {
-      print(value);
+    if (response.statusCode != 200) {
+      var error_message = response.stream.bytesToString();
+      return error_message;
     }
-  );
+    else {
+      var success_message = "Successful";
+    return success_message;
+  }
 }
 
 delete_image(String empName, String empId) async {
-  var uri = Uri.parse("http://192.168.29.30:7091/api/employee_services");
+  var uri = Uri.parse("http://192.168.0.221:7091/api/employee_services");
   var body = jsonEncode({"empName" : empName, "empId" : empId});
   final request = http.Request("DELETE", uri);
   request.headers.addAll(<String, String> {
     "Content-Type": "application/json",
   });
+
   request.body = body;
+
   final response = await request.send();
   if (response.statusCode != 200) {
-    return response.stream.bytesToString();
+    var error_message = response.stream.bytesToString();
+    return error_message;
   }
   else {
-    return "Successful";
+    var success_message = "Successful";
+    return success_message;
   }
 }

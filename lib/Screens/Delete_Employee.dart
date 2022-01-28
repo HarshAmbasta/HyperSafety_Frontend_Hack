@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:hypersafety_frontend_hack/API_NodeJS/API_NodeJS.dart';
 import 'package:async/async.dart';
 import 'package:hypersafety_frontend_hack/Custom_Library/timer_button.dart';
@@ -23,7 +24,7 @@ class _DeleteEmployeeScreenState extends State<DeleteEmployeeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.red,
         centerTitle: true,
@@ -56,6 +57,10 @@ class _DeleteEmployeeScreenState extends State<DeleteEmployeeScreen> {
                   fillColor: Colors.grey[400],
                   filled: true,
                 ),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z]+|\s")),
+                  FilteringTextInputFormatter.deny(RegExp(r"^\s|[ ]{2,}")),
+                ],
               ),
               Padding(
                   padding: EdgeInsets.fromLTRB(
@@ -78,6 +83,9 @@ class _DeleteEmployeeScreenState extends State<DeleteEmployeeScreen> {
                   fillColor: Colors.grey[400],
                   filled: true,
                 ),
+                inputFormatters: [
+                  FilteringTextInputFormatter.deny(RegExp('[ ]')),
+                ],
               ),
               Spacer(),
               AnimatedContainer(
@@ -97,16 +105,16 @@ class _DeleteEmployeeScreenState extends State<DeleteEmployeeScreen> {
                         new TextStyle(fontSize: 23.0, color: Colors.white),
                     onPressed: () async {
                       if (_empName.text.isNotEmpty && _empId.text.isNotEmpty) {
-                        var response =
-                            await delete_image(_empName.text, _empId.text);
+                        var response = await delete_image(
+                            _empName.text.trimRight(), _empId.text.trimRight());
                         print(response);
                         if (response == "Successful") {
                           showSnackBar(context,
-                              "Successfully removed employee.", Colors.green);
+                              "Successfully Removed Employee.", Colors.green);
+                          reset_screen();
                         } else {
                           showSnackBar(context, response, Colors.red);
                         }
-                        reset_screen();
                       } else {
                         if (_empName.text.isEmpty) {
                           showSnackBar(

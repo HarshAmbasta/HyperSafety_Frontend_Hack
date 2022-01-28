@@ -1,9 +1,14 @@
-// ignore_for_file: use_key_in_widget_constructors, unused_import, file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields
+// ignore_for_file: use_key_in_widget_constructors, unused_import, file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, non_constant_identifier_names, unnecessary_this, unnecessary_string_interpolations, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'package:hypersafety_frontend_hack/Emp_Model/Employee.dart';
+import 'package:hypersafety_frontend_hack/Sample_Employees/Sample_Employees.dart';
+import 'package:hypersafety_frontend_hack/Widgets/Scrollable_Widget.dart';
+import 'package:hypersafety_frontend_hack/Widgets/Tab_Bar_Widget.dart';
+import 'package:hypersafety_frontend_hack/Screens/Sortable_Screen.dart';
 
 class FetchEmployeeRecordScreen extends StatefulWidget {
   @override
@@ -12,52 +17,45 @@ class FetchEmployeeRecordScreen extends StatefulWidget {
 }
 
 class _FetchEmployeeRecordScreenState extends State<FetchEmployeeRecordScreen> {
-  
-  int ? _value = 1;
+  int? drop_down_value = 1;
+
+  late List<Employee> employees;
+  int? sortColumnIndex;
+  bool isAscending = false;
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        centerTitle: true,
-        title: Text("Employee Records",
-            style: TextStyle(
-              fontSize: 28.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.white, //Color(0xff689d6a),
-            )
-          ),
-      ),
-      body:Container(
-          padding: EdgeInsets.all(20),
-          child:Align(
-            alignment: Alignment.topCenter,
-            child: DropdownButton(
-              icon: Icon(
-                Icons.arrow_drop_down,
-                color: Colors.black,
-              ),
-              dropdownColor: Colors.white,
-              value: _value,
-              items: [
-                DropdownMenuItem(
-                  child: Text("All Employees",),
-                  value: 1,
-                ),
-                DropdownMenuItem(
-                  child: Text("Exceeded Warnings"),
-                  value: 2,
-                )
-              ],
-              onChanged: (value) {
-                setState(() {
-                  _value = value as int?;
-                });
-              },
-              ),
-          ),
-          )
-    );
+  void initState() {
+    super.initState();
+
+    this.employees = List.of(all_employees);
   }
+
+  @override
+  Widget build(BuildContext context) => TabBarWidget(
+        title: "Employee Records",
+        tabs: [
+          Tab(icon: Icon(Icons.all_inclusive), text: 'All Employees'),
+          Tab(icon: Icon(Icons.warning), text: 'Exceeded Warnings'),
+        ],
+        children: [
+          SortablePage(),
+          SortablePage(),
+        ],
+      );
+
+  // @override
+  // Widget build(BuildContext context) => Scaffold(
+  //   backgroundColor: Colors.blue,//Theme.of(context).primaryColor,
+  //   appBar: AppBar(
+  //     backgroundColor: Colors.red,
+  //     centerTitle: true,
+  //     title: Text("Employee Records",
+  //         style: TextStyle(
+  //           fontSize: 28.0,
+  //           fontWeight: FontWeight.bold,
+  //           color: Colors.white, //Color(0xff689d6a),
+  //         )
+  //       ),
+  //   ),
+  // );
 }

@@ -1,9 +1,11 @@
 // ignore_for_file: use_key_in_widget_constructors, unused_import, file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use, avoid_unnecessary_containers, import_of_legacy_library_into_null_safe, unused_local_variable, unused_field, avoid_init_to_null, prefer_final_fields, unnecessary_null_comparison, avoid_print, prefer_is_empty, non_constant_identifier_names, unnecessary_new, unused_label
 
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:hypersafety_frontend_hack/API_NodeJS/API_NodeJS.dart';
 import 'package:async/async.dart';
@@ -15,6 +17,8 @@ class AddEmployeeScreen extends StatefulWidget {
 }
 
 class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
+  RegExp reg_exp = RegExp(r"(\w+)");
+
   PickedFile? _imageFile;
   final ImagePicker _picker = ImagePicker();
   bool _isImagePicked = false;
@@ -28,7 +32,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.red,
         centerTitle: true,
@@ -71,6 +75,10 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                   fillColor: Colors.grey[400],
                   filled: true,
                 ),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z]+|\s")),
+                  FilteringTextInputFormatter.deny(RegExp(r"^\s|[ ]{2,}")),
+                ],
               ),
               Padding(
                   padding: EdgeInsets.fromLTRB(
@@ -86,12 +94,16 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(25.0),
                       borderSide: BorderSide(color: Colors.teal)),
+                  hintText: "New Employee ID",
                   hintStyle: TextStyle(color: Colors.blueGrey, fontSize: 20.0),
                   labelText: "Employee ID",
                   labelStyle: TextStyle(fontSize: 24, color: Colors.black),
                   fillColor: Colors.grey[400],
                   filled: true,
                 ),
+                inputFormatters: [
+                  FilteringTextInputFormatter.deny(RegExp('[ ]')),
+                ],
               ),
               Container(
                 padding: EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
@@ -134,31 +146,37 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                     label: "Submit",
                     color: Colors.red,
                     buttonType: ButtonType.RaisedButton,
-                    onPressed: () {
+                    onPressed: () async {
+                      if (_empName.text.isNotEmpty &&
+                          _empId.text.isNotEmpty &&
+                          _isImagePicked) {
+                        var node_response = await upload_image(
+                            File(_imageFile!.path),
+                            _empName.text.trimRight(),
+                            _empId.text.trimRight());
+                        if (node_response == "Successful") {
+                          showSnackBar(context, "Successfully Added Employee.",
+                              Colors.green);
+                          reset_screen();
+                        } else {
+                          showSnackBar(context, node_response, Colors.red);
+                        }
+                      } else {
+                        if (_empName.text.isEmpty) {
+                          showSnackBar(
+                              context, "Name Field is Required.", Colors.red);
+                        } else if (_empId.text.isEmpty) {
+                          showSnackBar(
+                              context, "Employee ID is Required.", Colors.red);
+                        } else if (_isImagePicked == false) {
+                          showSnackBar(context, "Employee Image is Required.",
+                              Colors.red);
+                        }
+                      }
                       setState(() {
                         FocusScope.of(context).unfocus();
                         padding_snackbar =
                             EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 40.0);
-                        if (_empName.text.isNotEmpty &&
-                            _empId.text.isNotEmpty &&
-                            _isImagePicked) {
-                          var reponse = upload_image(File(_imageFile!.path),
-                              _empName.text, _empId.text);
-                          showSnackBar(context, "Successfully added employee.",
-                              Colors.green);
-                          reset_screen();
-                        } else {
-                          if (_empName.text.isEmpty) {
-                            showSnackBar(
-                                context, "Name Field is Required.", Colors.red);
-                          } else if (_empId.text.isEmpty) {
-                            showSnackBar(context, "Employee ID is Required.",
-                                Colors.red);
-                          } else if (_isImagePicked == false) {
-                            showSnackBar(context, "Employee Image is Required.",
-                                Colors.red);
-                          }
-                        }
                         Future.delayed(const Duration(seconds: 3), () {
                           setState(() {
                             padding_snackbar =
@@ -191,7 +209,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
       child: Column(
         children: <Widget>[
           Text(
-            "Choose Employee photo",
+            "Choose Employee's Photo",
             style: TextStyle(
               color: Colors.white,
               fontSize: 20.0,
@@ -232,14 +250,6 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
     });
   }
 
-  adjust_submit_padding() {
-    print("hi");
-    setState(() {
-      padding_snackbar = EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0);
-    });
-    // padding_snackbar = EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0);
-  }
-
   void showSnackBar(BuildContext context, String text, Color status) {
     final snackBar = SnackBar(
       content: Text(
@@ -249,7 +259,6 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
       backgroundColor: status,
       duration: Duration(seconds: 2, milliseconds: 560), //default is 4s
     );
-    // Find the Scaffold in the widget tree and use it to show a SnackBar.
     ScaffoldMessenger.of(context).showSnackBar(snackBar).closed.then(
           (reason) =>
               padding_snackbar = EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),

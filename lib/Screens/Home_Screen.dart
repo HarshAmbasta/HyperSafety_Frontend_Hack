@@ -10,6 +10,7 @@ import 'package:hypersafety_frontend_hack/Screens/Reset_Record.dart';
 
 // Test Files.
 // import 'package:hypersafety_frontend_hack/Screens/Add_Employee_Test.dart';
+import 'package:hypersafety_frontend_hack/Screens/Test_Screens/Employee_Records_Test.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.red, // AppBar Color.
         title: Center(
@@ -96,6 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onPressed: () {
                           _navigateToNextScreen(
                               context, FetchEmployeeRecordScreen());
+                          // _navigateToNextScreen(context, SortablePwarnings());
                         },
                       ),
                     ),

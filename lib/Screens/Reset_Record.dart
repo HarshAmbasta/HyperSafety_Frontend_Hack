@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:hypersafety_frontend_hack/Custom_Library/timer_button.dart';
 
 class ResetRecordsScreen extends StatefulWidget {
@@ -19,7 +20,7 @@ class _ResetRecordsScreenState extends State<ResetRecordsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.red,
         centerTitle: true,
@@ -52,6 +53,10 @@ class _ResetRecordsScreenState extends State<ResetRecordsScreen> {
                   fillColor: Colors.grey[400],
                   filled: true,
                 ),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z]+|\s")),
+                  FilteringTextInputFormatter.deny(RegExp(r"^\s|[ ]{2,}")),
+                ],
               ),
               Padding(
                   padding: EdgeInsets.fromLTRB(
@@ -74,6 +79,9 @@ class _ResetRecordsScreenState extends State<ResetRecordsScreen> {
                   fillColor: Colors.grey[400],
                   filled: true,
                 ),
+                inputFormatters: [
+                  FilteringTextInputFormatter.deny(RegExp('[ ]')),
+                ],
               ),
               Spacer(),
               AnimatedContainer(
