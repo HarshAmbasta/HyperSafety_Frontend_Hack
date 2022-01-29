@@ -11,11 +11,13 @@ import 'package:path/path.dart';
 import 'package:hypersafety_frontend_hack/Emp_Model/Employee.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-admin_login(String admin_email, String admin_pass) async {
-  var host_ip = "192.168.29.30"; //Ritvik
-  // var host_ip = "192.168.0.221"; //Akul
-  // var host_ip = "192.168.1.41"; //Steve
+var host_ip = "192.168.0.6"; //Vivek
+// var host_ip = "192.168.0.6"; //Akul
+// var host_ip = "192.168.0.6"; //Steve
+// var host_ip = "192.168.0.6"; //Ritvik
+// var host_ip = "192.168.0.6"; //Harsh
 
+admin_login(String admin_email, String admin_pass) async {
   var uri = Uri.parse("http://" + host_ip + ":7091/api/admin_services/login");
   final jwt_storage = new FlutterSecureStorage();
   String? jwt_token;
@@ -48,10 +50,6 @@ upload_image(File imageFile, String empName, String empId) async {
 
   var stream = http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
   var length = await imageFile.length();
-
-  var host_ip = "192.168.29.30"; //Ritvik
-  //  var host_ip = "192.168.0.221"; //Akul
-  //var host_ip = "192.168.1.41"; //Steve
 
   var uri = Uri.parse("http://" + host_ip + ":7091/api/employee_services");
 
@@ -86,9 +84,6 @@ upload_image(File imageFile, String empName, String empId) async {
 delete_employee(String empName, String empId) async {
   final jwt_storage = new FlutterSecureStorage();
   final _readJWTToken = await jwt_storage.read(key: "jwt");
-  var host_ip = "192.168.29.30"; //Ritvik
-  // var host_ip = "192.168.0.221"; //Akul
-  // var host_ip = "192.168.1.41"; //Steve
 
   var uri = Uri.parse("http://" + host_ip + ":7091/api/employee_services");
   var body = jsonEncode({"empName": empName, "empId": empId});
@@ -118,9 +113,6 @@ delete_employee(String empName, String empId) async {
 reset_records(String empName, String empId) async {
   final jwt_storage = new FlutterSecureStorage();
   final _readJWTToken = await jwt_storage.read(key: "jwt");
-  var host_ip = "192.168.29.30"; //Ritvik
-  // var host_ip = "192.168.0.221"; //Akul
-  //var host_ip = "192.168.1.41"; //Steve
 
   var uri = Uri.parse("http://" + host_ip + ":7091/api/employee_services");
   var body = jsonEncode({"empName": empName, "empId": empId});
@@ -150,9 +142,6 @@ reset_records(String empName, String empId) async {
 display_records(bool showAll) async {
   final jwt_storage = new FlutterSecureStorage();
   final _readJWTToken = await jwt_storage.read(key: "jwt");
-  var host_ip = "192.168.29.30"; //Ritvik
-  // var host_ip = "192.168.0.221"; //Akul
-  //var host_ip = "192.168.1.41"; //Steve
 
   var uri = Uri.parse("http://" + host_ip + ":7091/api/employee_services");
 
@@ -190,12 +179,10 @@ display_records(bool showAll) async {
 }
 
 fetch_specific_employee_records(String empName, String empId) async {
+  print('Empname :' + empName);
   final jwt_storage = new FlutterSecureStorage();
   final _readJWTToken = await jwt_storage.read(key: "jwt");
 
-  var host_ip = "192.168.29.30"; //Ritvik
-  // var host_ip = "192.168.0.221"; //Akul
-  //var host_ip = "192.168.1.41"; //Steve
   var uri = Uri.parse("http://" +
       host_ip +
       ":7091/api/employee_services/" +
@@ -232,6 +219,7 @@ fetch_specific_employee_records(String empName, String empId) async {
 }
 
 String CapitalizeText(String text) {
+  print(text);
   List<String> text_to_capitalize = text.split(" ");
 
   for (int i = 0; i < text_to_capitalize.length; i++) {
