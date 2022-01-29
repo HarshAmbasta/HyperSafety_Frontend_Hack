@@ -1,20 +1,12 @@
 // ignore: file_names
-// ignore: file_names
-// ignore: file_names
 // ignore_for_file: use_key_in_widget_constructors, deprecated_member_use, avoid_print, file_names, prefer_const_constructors, duplicate_ignore, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, unused_element, non_constant_identifier_names, unused_import, avoid_unnecessary_containers, unnecessary_this, unnecessary_string_interpolations, duplicate_import
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hypersafety_frontend_hack/API_NodeJS/API_NodeJS.dart';
-import 'package:hypersafety_frontend_hack/Screens/Add_Employee.dart';
-import 'package:hypersafety_frontend_hack/Screens/Delete_Employee.dart';
-import 'package:hypersafety_frontend_hack/Screens/Employee_Records.dart';
-import 'package:hypersafety_frontend_hack/Screens/Reset_Record.dart';
-import 'package:hypersafety_frontend_hack/Employees_List/Employees_List.dart';
 import 'package:hypersafety_frontend_hack/Emp_Model/Employee.dart';
+import 'package:hypersafety_frontend_hack/Screens/Home_Screen.dart';
 import 'package:hypersafety_frontend_hack/Widgets/Scrollable_Widget.dart';
-import 'package:hypersafety_frontend_hack/Employees_List/Employees_List.dart';
-import 'package:hypersafety_frontend_hack/Employees_List/Exceeded_Warnings_List.dart';
 import 'package:hypersafety_frontend_hack/Screens/Login_Screen.dart';
 
 class FetchEmployeeRecordsScreen extends StatefulWidget {
@@ -46,8 +38,7 @@ class _FetchEmployeeRecordsScreenState
     if (node_response is String) {
       if (node_response == "Go To Login Page.") {
         _navigateToNextScreen(context, LoginScreen());
-        showSnackBar(
-            context, "Session Expired - Please Login Again.", Colors.red);
+        node_response = "Session Expired - Please Login Again.";
       }
       showSnackBar(context, node_response, Colors.red);
     } else {
@@ -102,7 +93,6 @@ class _FetchEmployeeRecordsScreenState
 
   Widget _addScrollableWidget() {
     return Container(
-      // color: Colors.white,
       child: ScrollableWidget(child: buildDataTable()),
     );
   }
@@ -224,7 +214,7 @@ class _FetchEmployeeRecordsScreenState
                                 size: 25.5,
                               ),
                               onPressed: () {
-                                Navigator.pop(context);
+                                _navigateToNextScreen(context, HomeScreen());
                               },
                             ),
                           ),
