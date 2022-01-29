@@ -5,10 +5,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hypersafety_frontend_hack/API_NodeJS/API_NodeJS.dart';
 import 'package:hypersafety_frontend_hack/Screens/Add_Employee.dart';
 import 'package:hypersafety_frontend_hack/Screens/Delete_Employee.dart';
 import 'package:hypersafety_frontend_hack/Screens/Employee_Records.dart';
 import 'package:hypersafety_frontend_hack/Screens/Reset_Record.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -16,11 +19,45 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    BackButtonInterceptor.add(myInterceptor);
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    return true;
+  }
+
   Widget _buildAddEmployeeBtn() {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: RaisedButton(
+        child: Container(
+          child: Row(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Image.asset("assets/Images/Add_Employee.png",
+                    width: 40.0, height: 40.0),
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 10.0),
+                child: Text(
+                  'ADD EMPLOYEE',
+                  style: TextStyle(
+                    color: Color(0xFF527DAA),
+                    letterSpacing: 1.25,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'OpenSans',
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
         splashColor: Colors.lightGreenAccent,
         elevation: 5.0,
         onPressed: () {
@@ -31,16 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.circular(30.0),
         ),
         color: Colors.white,
-        child: Text(
-          'ADD EMPLOYEE',
-          style: TextStyle(
-            color: Color(0xFF527DAA),
-            letterSpacing: 1.5,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'OpenSans',
-          ),
-        ),
       ),
     );
   }
@@ -50,6 +77,30 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: RaisedButton(
+        child: Container(
+          child: Row(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Image.asset("assets/Images/Del_Employee.png",
+                    width: 40.0, height: 40.0),
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 10.0),
+                child: Text(
+                  'DELETE EMPLOYEE',
+                  style: TextStyle(
+                    color: Color(0xFF527DAA),
+                    letterSpacing: 1.25,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'OpenSans',
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
         splashColor: Colors.lightGreenAccent,
         elevation: 5.0,
         onPressed: () {
@@ -60,16 +111,6 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.circular(30.0),
         ),
         color: Colors.white,
-        child: Text(
-          'DELETE EMPLOYEE',
-          style: TextStyle(
-            color: Color(0xFF527DAA),
-            letterSpacing: 1.5,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'OpenSans',
-          ),
-        ),
       ),
     );
   }
@@ -79,6 +120,30 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: RaisedButton(
+        child: Container(
+          child: Row(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Image.asset("assets/Images/Emp_Records.png",
+                    width: 40.0, height: 40.0),
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 10.0),
+                child: Text(
+                  'DISPLAY EMPLOYEES',
+                  style: TextStyle(
+                    color: Color(0xFF527DAA),
+                    letterSpacing: 1.25,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'OpenSans',
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
         splashColor: Colors.lightGreenAccent,
         elevation: 5.0,
         onPressed: () {
@@ -89,16 +154,6 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.circular(30.0),
         ),
         color: Colors.white,
-        child: Text(
-          'DISPLAY EMPLOYEES',
-          style: TextStyle(
-            color: Color(0xFF527DAA),
-            letterSpacing: 1.5,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'OpenSans',
-          ),
-        ),
       ),
     );
   }
@@ -108,6 +163,30 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: RaisedButton(
+        child: Container(
+          child: Row(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Image.asset("assets/Images/Reset_Records.png",
+                    width: 40.0, height: 37),
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 10.0),
+                child: Text(
+                  'RESET RECORDS',
+                  style: TextStyle(
+                    color: Color(0xFF527DAA),
+                    letterSpacing: 1.25,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'OpenSans',
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
         splashColor: Colors.lightGreenAccent,
         elevation: 5.0,
         onPressed: () {
@@ -118,16 +197,6 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.circular(30.0),
         ),
         color: Colors.white,
-        child: Text(
-          'RESET RECORD',
-          style: TextStyle(
-            color: Color(0xFF527DAA),
-            letterSpacing: 1.5,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'OpenSans',
-          ),
-        ),
       ),
     );
   }
@@ -167,28 +236,33 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: <Widget>[
                       Row(
                         children: [
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: IconButton(
-                              color: Colors.white,
-                              icon: Icon(
-                                Icons.arrow_back_ios_new_rounded,
-                                size: 25.5,
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(45.0, 3.0, 0, 0),
+                            child: Container(
+                              child: Text(
+                                'HyperSafety',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'OpenSans',
+                                  fontSize: 32.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.fromLTRB(35.0, 0, 0, 0),
-                            child: Text(
-                              'HyperSafety',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'OpenSans',
-                                fontSize: 30.0,
-                                fontWeight: FontWeight.bold,
+                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: Align(
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                color: Colors.amber[900],
+                                icon: Icon(
+                                  Icons.power_settings_new_rounded,
+                                  size: 35.0,
+                                ),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
                               ),
                             ),
                           ),
@@ -199,13 +273,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           physics: AlwaysScrollableScrollPhysics(),
                           padding: EdgeInsets.symmetric(
                             horizontal: 40.0,
-                            vertical: 120.0,
+                            vertical: 60.0,
                           ),
                           child: Column(
                             children: <Widget>[
                               _buildAddEmployeeBtn(),
+                              Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 10)),
                               _buildDispEmployeebtn(),
+                              Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 10)),
                               _buildResetRecordbtn(),
+                              Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 10)),
                               _buildDelEmployeebtn(),
                             ],
                           ),
