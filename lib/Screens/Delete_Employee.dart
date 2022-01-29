@@ -105,15 +105,14 @@ class _DeleteEmployeeScreenState extends State<DeleteEmployeeScreen> {
                         new TextStyle(fontSize: 23.0, color: Colors.white),
                     onPressed: () async {
                       if (_empName.text.isNotEmpty && _empId.text.isNotEmpty) {
-                        var response = await delete_image(
-                            _empName.text.trimRight(), _empId.text.trimRight());
-                        print(response);
-                        if (response == "Successful") {
-                          showSnackBar(context,
-                              "Successfully Removed Employee.", Colors.green);
+                        var node_response = await delete_employee(
+                            _empName.text.trimRight().toLowerCase(),
+                            _empId.text.trimRight());
+                        if (node_response == "Employee Successfully Deleted.") {
+                          showSnackBar(context, node_response, Colors.green);
                           reset_screen();
                         } else {
-                          showSnackBar(context, response, Colors.red);
+                          showSnackBar(context, node_response, Colors.red);
                         }
                       } else {
                         if (_empName.text.isEmpty) {

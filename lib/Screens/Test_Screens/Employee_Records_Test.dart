@@ -1,7 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, unnecessary_this, file_names, unused_import, non_constant_identifier_names
 
 import 'package:hypersafety_frontend_hack/Emp_Model/Employee.dart';
-import 'package:hypersafety_frontend_hack/Sample_Employees/Sample_Employees.dart';
+import 'package:hypersafety_frontend_hack/Employees_List/Sample_Employees.dart';
 import 'package:hypersafety_frontend_hack/Widgets/Scrollable_Widget.dart';
 import 'package:flutter/material.dart';
 

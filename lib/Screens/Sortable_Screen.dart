@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:hypersafety_frontend_hack/Emp_Model/Employee.dart';
-import 'package:hypersafety_frontend_hack/Sample_Employees/Sample_Employees.dart';
+import 'package:hypersafety_frontend_hack/Employees_List/Sample_Employees.dart';
 import 'package:hypersafety_frontend_hack/Widgets/Scrollable_Widget.dart';
 
 class SortablePage extends StatefulWidget {

@@ -152,11 +152,10 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                           _isImagePicked) {
                         var node_response = await upload_image(
                             File(_imageFile!.path),
-                            _empName.text.trimRight(),
+                            _empName.text.trimRight().toLowerCase(),
                             _empId.text.trimRight());
-                        if (node_response == "Successful") {
-                          showSnackBar(context, "Successfully Added Employee.",
-                              Colors.green);
+                        if (node_response == "Employee Added Successfully.") {
+                          showSnackBar(context, node_response, Colors.green);
                           reset_screen();
                         } else {
                           showSnackBar(context, node_response, Colors.red);
