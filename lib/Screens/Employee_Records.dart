@@ -30,11 +30,13 @@ class _FetchEmployeeRecordScreenState extends State<FetchEmployeeRecordScreen> {
   @override
   void initState() {
     super.initState();
+    setState(() {
+      Employee new_emp =
+          Employee(emp_name: 'Ritvik Sharma', emp_id: "RA021", warnings: 0);
+      all_employees.add(new_emp);
+      print(all_employees[0].emp_name);
+    });
 
-    Employee new_emp =
-        Employee(emp_name: 'Ritvik Sharma', emp_id: "RA021", warnings: 0);
-    all_employees.add(new_emp);
-    print(all_employees);
     this.employees = List.of(all_employees);
   }
 
@@ -42,7 +44,10 @@ class _FetchEmployeeRecordScreenState extends State<FetchEmployeeRecordScreen> {
   Widget build(BuildContext context) => TabBarWidget(
         title: "Employee Records",
         tabs: [
-          Tab(icon: Icon(Icons.all_inclusive), text: 'All Employees'),
+          Tab(
+            icon: Icon(Icons.all_inclusive),
+            text: 'All Employees',
+          ),
           Tab(icon: Icon(Icons.warning), text: 'Exceeded Warnings'),
         ],
         children: [

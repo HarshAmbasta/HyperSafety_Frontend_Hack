@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'HyperSafety-Frontend-Hack',
+      title: 'HR-Tech-Solutions',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // brightness: Brightness.light,
