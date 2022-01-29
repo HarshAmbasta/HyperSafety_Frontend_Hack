@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, unused_import, file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, non_constant_identifier_names, unnecessary_this, unnecessary_string_interpolations, avoid_print, unused_local_variable
+// ignore_for_file: use_key_in_widget_constructors, unused_import, file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, non_constant_identifier_names, unnecessary_this, unnecessary_string_interpolations, avoid_print, unused_local_variable, unused_element, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -7,7 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:hypersafety_frontend_hack/Emp_Model/Employee.dart';
 import 'package:hypersafety_frontend_hack/Widgets/Scrollable_Widget.dart';
 import 'package:hypersafety_frontend_hack/Widgets/Tab_Bar_Widget.dart';
-import 'package:hypersafety_frontend_hack/Screens/Sortable_Screen.dart';
+import 'package:hypersafety_frontend_hack/Screens/Sortable_Screen_All_Emp.dart';
+import 'package:hypersafety_frontend_hack/Screens/Sortable_Screen_Warns_Only.dart';
 
 // import 'package:hypersafety_frontend_hack/Employees_List/Sample_Employees.dart';
 import 'package:hypersafety_frontend_hack/Employees_List/Employees_List.dart';
@@ -25,16 +26,19 @@ class _FetchEmployeeRecordScreenState extends State<FetchEmployeeRecordScreen> {
   int? sortColumnIndex;
   bool isAscending = false;
 
+  TextEditingController warnings_alert = TextEditingController();
+  String? codeDialogue;
+  String? valueText;
+
   // List all_employees = <Employee> [];
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      Employee new_emp =
-          Employee(emp_name: 'Ritvik Sharma', emp_id: "RA021", warnings: 0);
-      all_employees.add(new_emp);
-      print(all_employees[0].emp_name);
+      // Employee new_emp = Employee( emp_name: 'Ritvik Sharma', emp_id: "RA021", warnings: 0);
+      // all_employees.add(new_emp);
+      // print(all_employees[0].emp_name);
     });
 
     this.employees = List.of(all_employees);
@@ -51,8 +55,8 @@ class _FetchEmployeeRecordScreenState extends State<FetchEmployeeRecordScreen> {
           Tab(icon: Icon(Icons.warning), text: 'Exceeded Warnings'),
         ],
         children: [
-          SortablePage(),
-          SortablePage(),
+          SortablePageAll(),
+          SortablePageWarnsOnly(),
         ],
       );
 }
