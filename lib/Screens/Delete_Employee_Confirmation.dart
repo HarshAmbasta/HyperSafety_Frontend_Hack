@@ -180,9 +180,10 @@ class _DeleteConfirmationScreenState extends State<DeleteConfirmationScreen> {
   Widget _addConfirmationBtns() {
     return Container(
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+            padding: EdgeInsets.only(right: 15),
             child: ButtonTheme(
               minWidth: 150,
               child: new RaisedButton(
@@ -212,7 +213,7 @@ class _DeleteConfirmationScreenState extends State<DeleteConfirmationScreen> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(55, 0, 0, 0),
+            padding: EdgeInsets.only(left: 15),
             child: ButtonTheme(
               minWidth: 150,
               child: new RaisedButton(
@@ -290,10 +291,12 @@ class _DeleteConfirmationScreenState extends State<DeleteConfirmationScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Row(
-                        children: [
-                          Align(
-                            alignment: Alignment.topLeft,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(left: 10),
                             child: IconButton(
+                              padding: EdgeInsets.zero,
+                              constraints: BoxConstraints(),
                               color: Colors.white,
                               icon: Icon(
                                 Icons.arrow_back_ios_new_rounded,
@@ -305,15 +308,18 @@ class _DeleteConfirmationScreenState extends State<DeleteConfirmationScreen> {
                               },
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(30.0, 0, 0, 0),
-                            child: Text(
-                              'Confirmation Page',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'OpenSans',
-                                fontSize: 30.0,
-                                fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 35.5),
+                              child: Text(
+                                "Confirmation",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'OpenSans',
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
@@ -337,10 +343,6 @@ class _DeleteConfirmationScreenState extends State<DeleteConfirmationScreen> {
                                   padding:
                                       EdgeInsets.symmetric(vertical: 10.0)),
                               _addWarningField(),
-                              Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(vertical: 50.0)),
-                              _addConfirmationBtns(),
                             ],
                           ),
                         ),
@@ -348,7 +350,12 @@ class _DeleteConfirmationScreenState extends State<DeleteConfirmationScreen> {
                     ],
                   ),
                 ),
-              )
+              ),
+              Container(
+                padding: EdgeInsets.only(bottom: 60),
+                alignment: Alignment.bottomCenter,
+                child: _addConfirmationBtns(),
+              ),
             ],
           ),
         ),

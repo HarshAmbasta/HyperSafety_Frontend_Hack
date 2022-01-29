@@ -1,6 +1,6 @@
 {
-    "name": "hypersafety_frontend_hack",
-    "short_name": "hypersafety_frontend_hack",
+    "name": "HyperSafety",
+    "short_name": "HyperSafety",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

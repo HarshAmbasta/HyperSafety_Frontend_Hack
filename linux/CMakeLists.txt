@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
-set(BINARY_NAME "hypersafety_frontend_hack")
-set(APPLICATION_ID "com.example.hypersafety_frontend_hack")
+set(BINARY_NAME "HyperSafety")
+set(APPLICATION_ID "com.example.HyperSafety")
 
 cmake_policy(SET CMP0063 NEW)
 

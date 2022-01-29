@@ -10,6 +10,7 @@ import 'package:hypersafety_frontend_hack/Screens/Login_Screen.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hypersafety_frontend_hack/Screens/Logo_Screen.dart';
 
+// flutter pub run flutter_launcher_icons:main
 // flutter run --no-sound-null-safety
 void main() {
   runApp(MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'HyperSafety-Fronted-Hack',
+      title: 'HyperSafety',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           // dividerColor: Colors.blueGrey,
