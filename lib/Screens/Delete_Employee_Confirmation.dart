@@ -12,6 +12,7 @@ import 'package:async/async.dart';
 import 'package:hypersafety_frontend_hack/Utilities/Utilities.dart';
 import 'package:hypersafety_frontend_hack/Screens/Delete_Employee.dart'
     as DeleteEmployee;
+import 'package:hypersafety_frontend_hack/Screens/Login_Screen.dart';
 
 class DeleteConfirmationScreen extends StatefulWidget {
   @override
@@ -29,8 +30,6 @@ class _DeleteConfirmationScreenState extends State<DeleteConfirmationScreen>
   TextEditingController _empName = TextEditingController();
   TextEditingController _empId = TextEditingController();
   TextEditingController _empWarnings = TextEditingController();
-
-  EdgeInsets padding_snackbar = EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0);
 
   @override
   void initState() {
@@ -251,7 +250,13 @@ class _DeleteConfirmationScreenState extends State<DeleteConfirmationScreen>
                   var node_response = await delete_employee(
                       _empName.text.toLowerCase(), _empId.text);
                   Navigator.pop(context);
-                  if (node_response == "Employee Successfully Deleted.") {
+                  if (node_response == "Go To Login Page.") {
+                    showSnackBar(context,
+                        "Session Expired - Please Login Again.", Colors.red);
+                    DeleteEmployee.DeleteEmployeeScreen.reset_screen();
+                    _navigateToNextScreen(context, LoginScreen());
+                  } else if (node_response ==
+                      "Employee Successfully Deleted.") {
                     showSnackBar(context, node_response, Colors.green);
                     DeleteEmployee.DeleteEmployeeScreen.reset_screen();
                     _navigateToNextScreen(
@@ -389,12 +394,9 @@ class _DeleteConfirmationScreenState extends State<DeleteConfirmationScreen>
         textScaleFactor: 1.3,
       ),
       backgroundColor: status,
-      duration: Duration(seconds: 2, milliseconds: 560), //default is 4s
+      duration: Duration(seconds: 2, milliseconds: 560),
     );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar).closed.then(
-          (reason) =>
-              padding_snackbar = EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
-        );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   void _navigateToNextScreen(BuildContext context, NewScreen) {

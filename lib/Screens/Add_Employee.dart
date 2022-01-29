@@ -30,7 +30,6 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen>
   TextEditingController _empName = TextEditingController();
   TextEditingController _empId = TextEditingController();
 
-  EdgeInsets padding_snackbar = EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0);
   @override
   void initState() {
     super.initState();
@@ -177,9 +176,6 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen>
         splashColor: Colors.lightGreenAccent,
         elevation: 15.0,
         onPressed: () async {
-          // Future.delayed(const Duration(seconds: 5),(){
-          //   Navigator.pop(context);
-          // });
           if (_empName.text.isNotEmpty &&
               _empId.text.isNotEmpty &&
               _isImagePicked) {
@@ -407,12 +403,9 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen>
         textScaleFactor: 1.3,
       ),
       backgroundColor: status,
-      duration: Duration(seconds: 2, milliseconds: 560), //default is 4s
+      duration: Duration(seconds: 2, milliseconds: 560),
     );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar).closed.then(
-          (reason) =>
-              padding_snackbar = EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
-        );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   void reset_screen() {

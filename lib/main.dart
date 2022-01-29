@@ -8,8 +8,8 @@ import 'package:hypersafety_frontend_hack/Screens/Employee_Records.dart';
 import 'package:hypersafety_frontend_hack/Screens/Reset_Record.dart';
 import 'package:hypersafety_frontend_hack/Screens/Login_Screen.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:hypersafety_frontend_hack/Screens/Logo_Screen.dart';
 
+// flutter pub run flutter_native_splash:create
 // flutter pub run flutter_launcher_icons:main
 // flutter run --no-sound-null-safety
 void main() {
@@ -17,18 +17,16 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'HyperSafety',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          // dividerColor: Colors.blueGrey,
           iconTheme: IconThemeData(color: Colors.white),
           bottomSheetTheme:
               BottomSheetThemeData(backgroundColor: Color(0xFF243b55))),
-      home: LogoScreen(),
+      home: HomeScreen(),
     );
   }
 }

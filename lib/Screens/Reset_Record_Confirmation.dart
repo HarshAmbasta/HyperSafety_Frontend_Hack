@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:hypersafety_frontend_hack/API_NodeJS/API_NodeJS.dart';
 import 'package:async/async.dart';
 import 'package:hypersafety_frontend_hack/Utilities/Utilities.dart';
 import 'package:hypersafety_frontend_hack/Screens/Reset_Record.dart'
     as ResetRecords;
+import 'package:hypersafety_frontend_hack/Screens/Login_Screen.dart';
 
 class ResetConfirmationScreen extends StatefulWidget {
   @override
@@ -23,14 +23,12 @@ class _ResetConfirmationScreenState extends State<ResetConfirmationScreen>
     with TickerProviderStateMixin {
   AnimationController? animationController;
   String? _imageURL;
-  final ImagePicker _picker = ImagePicker();
-  bool _isImagePicked = false;
+  bool _isImageLoaded = false;
 
   TextEditingController _empName = TextEditingController();
   TextEditingController _empId = TextEditingController();
   TextEditingController _empWarnings = TextEditingController();
-
-  EdgeInsets padding_snackbar = EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0);
+  var _image;
 
   @override
   void initState() {
@@ -43,18 +41,26 @@ class _ResetConfirmationScreenState extends State<ResetConfirmationScreen>
       _empId.text = ResetRecords.ResetRecordScreen.specific_empId;
       _empWarnings.text = ResetRecords.ResetRecordScreen.specific_empWarnings;
       _imageURL = ResetRecords.ResetRecordScreen.specific_empImageURL;
+      _image = NetworkImage(_imageURL!);
     });
+
+    _image.resolve(ImageConfiguration()).addListener(
+      ImageStreamListener(
+        (info, call) {
+          setState(() {
+            print("Image Loaded!");
+            _isImageLoaded = true;
+          });
+        },
+      ),
+    );
   }
 
   Widget _addImgCircleAvatar() {
     return CircleAvatar(
-      radius: 77,
-      backgroundColor: Colors.transparent,
-      backgroundImage: AssetImage("assets/GIFs/Loading.gif"),
-      child: CircleAvatar(
-          radius: 78,
-          backgroundColor: Colors.transparent,
-          backgroundImage: NetworkImage(_imageURL!)),
+      radius: 78,
+      backgroundImage:
+          _isImageLoaded ? _image : AssetImage("assets/GIFs/Loading.gif"),
     );
   }
 
@@ -250,7 +256,12 @@ class _ResetConfirmationScreenState extends State<ResetConfirmationScreen>
                   var node_response =
                       await reset_records(_empName.text, _empId.text);
                   Navigator.pop(context);
-                  if (node_response == "Record Reset Successfully.") {
+                  if (node_response == "Go To Login Page.") {
+                    showSnackBar(context,
+                        "Session Expired - Please Login Again.", Colors.red);
+                    ResetRecords.ResetRecordScreen.reset_screen();
+                    _navigateToNextScreen(context, LoginScreen());
+                  } else if (node_response == "Record Reset Successfully.") {
                     showSnackBar(context, node_response, Colors.green);
                     ResetRecords.ResetRecordScreen.reset_screen();
                     _navigateToNextScreen(
@@ -390,10 +401,7 @@ class _ResetConfirmationScreenState extends State<ResetConfirmationScreen>
       backgroundColor: status,
       duration: Duration(seconds: 2, milliseconds: 560), //default is 4s
     );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar).closed.then(
-          (reason) =>
-              padding_snackbar = EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
-        );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   void _navigateToNextScreen(BuildContext context, NewScreen) {

@@ -24,6 +24,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_native_splash: ^1.2.3
+
   
   cupertino_icons: ^1.0.2
   http: ^0.12.1
@@ -32,6 +34,7 @@ dependencies:
   imgur: ^1.1.1
   image_picker: ^0.6.7+4
   url_launcher: ^6.0.5
+  dio: ^3.0.10
 
 dev_dependencies:
   flutter_test:
@@ -44,6 +47,14 @@ flutter_icons:
   image_path: "assets/Images/icon.png"
   android: true
   ios: true
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+
+  background_image: "assets/Images/background.png"
+  image: assets/Images/launch_image.png
 
 
 # The following section is specific to Flutter.
@@ -60,6 +71,7 @@ flutter:
     - assets/Images/Default_Emp_Image.png
     - assets/Images/Logo.png
     - assets/GIFs/Loading.gif
+
 
   fonts:
     - family: OpenSans
