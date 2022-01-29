@@ -235,7 +235,7 @@ class _DeleteConfirmationScreenState extends State<DeleteConfirmationScreen> {
                 ),
                 onPressed: () async {
                   var node_response = await delete_employee(
-                      _empName.text.toLowerCase(), _empId.text.toLowerCase());
+                      _empName.text.toLowerCase(), _empId.text);
                   if (node_response == "Employee Successfully Deleted.") {
                     showSnackBar(context, node_response, Colors.green);
                     DeleteEmployee.DeleteEmployeeScreen.reset_screen();
