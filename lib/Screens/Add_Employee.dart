@@ -130,7 +130,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
 
   Widget _addUploadImageBtn() {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 50.0),
+      padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
       width: double.infinity,
       child: RaisedButton(
         splashColor: Colors.lightGreenAccent,
@@ -162,7 +162,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
 
   Widget _addSubmitBtn() {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 20.0),
+      padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
       width: double.infinity,
       child: RaisedButton(
         splashColor: Colors.lightGreenAccent,
@@ -218,6 +218,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: GestureDetector(
@@ -240,49 +241,49 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                 ),
               ),
               Container(
-                child: SingleChildScrollView(
-                  // physics: AlwaysScrollableScrollPhysics(),
-                  padding:
-                      EdgeInsets.symmetric(vertical: 35.0, horizontal: 0.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Row(
-                        children: [
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: IconButton(
-                              color: Colors.white,
-                              icon: Icon(
-                                Icons.arrow_back_ios_new_rounded,
-                                size: 25.5,
-                              ),
-                              onPressed: () {
-                                _navigateToNextScreen(context, HomeScreen());
-                              },
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(35.0, 0, 0, 0),
-                            child: Text(
-                              'Add New Employee',
-                              style: TextStyle(
+                  constraints: BoxConstraints.expand(),
+                  child: SingleChildScrollView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 35.0, horizontal: 0.0),
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: IconButton(
+                                padding: EdgeInsets.zero,
+                                constraints: BoxConstraints(),
                                 color: Colors.white,
-                                fontFamily: 'OpenSans',
-                                fontSize: 30.0,
-                                fontWeight: FontWeight.bold,
+                                icon: Icon(
+                                  Icons.arrow_back_ios_new_rounded,
+                                  size: 25.5,
+                                ),
+                                onPressed: () {
+                                  _navigateToNextScreen(context, HomeScreen());
+                                },
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        child: SingleChildScrollView(
-                          physics: AlwaysScrollableScrollPhysics(),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 40.0,
-                            vertical: 20.0,
-                          ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 35.5),
+                                child: Text(
+                                  "Add Employee",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'OpenSans',
+                                    fontSize: 30.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(40, 40, 40, 0),
                           child: Column(
                             children: <Widget>[
                               _addImgCircleAvatar(),
@@ -292,14 +293,16 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                                       EdgeInsets.symmetric(vertical: 10.0)),
                               _addEmployeeIDField(),
                               _addUploadImageBtn(),
-                              _addSubmitBtn(),
                             ],
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                ),
+                      ],
+                    ),
+                  )),
+              Container(
+                padding: EdgeInsets.fromLTRB(40, 40, 40, 60),
+                alignment: Alignment.bottomCenter,
+                child: _addSubmitBtn(),
               )
             ],
           ),

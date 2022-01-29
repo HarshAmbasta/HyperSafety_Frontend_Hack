@@ -20,14 +20,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'HyperSafety-Frontend-Hack',
+      title: 'HyperSafety-Fronted-Hack',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           // dividerColor: Colors.blueGrey,
           iconTheme: IconThemeData(color: Colors.white),
           bottomSheetTheme:
               BottomSheetThemeData(backgroundColor: Color(0xFF243b55))),
-      home: LogoScreen(),
+      home: HomeScreen(),
     );
   }
 }

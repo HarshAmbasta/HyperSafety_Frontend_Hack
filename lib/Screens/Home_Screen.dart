@@ -225,7 +225,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Container(
-                // height: double.infinity,
                 child: SingleChildScrollView(
                   physics: AlwaysScrollableScrollPhysics(),
                   padding:
@@ -233,35 +232,36 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     children: <Widget>[
                       Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                            alignment: Alignment.center,
-                            width: MediaQuery.of(context).size.width,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  'HyperSafety',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'OpenSans',
-                                    fontSize: 32.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                        children: <Widget>[
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 70),
+                              child: Text(
+                                "HyperSafety",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'OpenSans',
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                IconButton(
-                                  color: Colors.amber[900],
-                                  icon: Icon(
-                                    Icons.power_settings_new_rounded,
-                                    size: 40.0,
-                                  ),
-                                  onPressed: () {
-                                    _navigateToNextScreen(
-                                        context, LoginScreen());
-                                  },
-                                ),
-                              ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 0, 30, 15),
+                            child: IconButton(
+                              padding: EdgeInsets.zero,
+                              constraints: BoxConstraints(),
+                              color: Colors.white,
+                              icon: Icon(
+                                Icons.power_settings_new_rounded,
+                                color: Colors.deepOrange,
+                                size: 40,
+                              ),
+                              onPressed: () {
+                                _navigateToNextScreen(context, LoginScreen());
+                              },
                             ),
                           ),
                         ],
