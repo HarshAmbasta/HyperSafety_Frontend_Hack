@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.white),
           bottomSheetTheme:
               BottomSheetThemeData(backgroundColor: Color(0xFF243b55))),
-      home: HomeScreen(),
+      home: LogoScreen(),
     );
   }
 }

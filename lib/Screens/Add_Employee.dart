@@ -18,7 +18,9 @@ class AddEmployeeScreen extends StatefulWidget {
   _AddEmployeeScreenState createState() => _AddEmployeeScreenState();
 }
 
-class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
+class _AddEmployeeScreenState extends State<AddEmployeeScreen>
+    with TickerProviderStateMixin {
+  AnimationController? animationController;
   RegExp reg_exp = RegExp(r"(\w+)");
 
   PickedFile? _imageFile;
@@ -29,6 +31,13 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
   TextEditingController _empId = TextEditingController();
 
   EdgeInsets padding_snackbar = EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0);
+  @override
+  void initState() {
+    super.initState();
+    animationController =
+        AnimationController(duration: new Duration(seconds: 2), vsync: this);
+    animationController!.repeat();
+  }
 
   Widget _addImgCircleAvatar() {
     return CircleAvatar(
@@ -168,13 +177,29 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
         splashColor: Colors.lightGreenAccent,
         elevation: 15.0,
         onPressed: () async {
+          // Future.delayed(const Duration(seconds: 5),(){
+          //   Navigator.pop(context);
+          // });
           if (_empName.text.isNotEmpty &&
               _empId.text.isNotEmpty &&
               _isImagePicked) {
+            showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      valueColor: animationController!.drive(ColorTween(
+                          begin: Colors.lightBlue[600],
+                          end: Colors.lightGreenAccent[400])),
+                    ),
+                  );
+                });
             var node_response = await upload_image(
                 File(_imageFile!.path),
                 _empName.text.trimRight().toLowerCase(),
                 _empId.text.trimRight());
+            Navigator.pop(context);
 
             if (node_response == "Employee Added Successfully.") {
               showSnackBar(context, node_response, Colors.green);
@@ -251,7 +276,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                         Row(
                           children: <Widget>[
                             Padding(
-                              padding: EdgeInsets.only(left: 10),
+                              padding: EdgeInsets.only(left: 15),
                               child: IconButton(
                                 padding: EdgeInsets.zero,
                                 constraints: BoxConstraints(),
@@ -267,7 +292,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                             ),
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.only(right: 35.5),
+                                padding: const EdgeInsets.only(right: 30.5),
                                 child: Text(
                                   "Add Employee",
                                   textAlign: TextAlign.center,

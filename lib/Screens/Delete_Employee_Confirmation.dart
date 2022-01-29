@@ -19,7 +19,9 @@ class DeleteConfirmationScreen extends StatefulWidget {
       _DeleteConfirmationScreenState();
 }
 
-class _DeleteConfirmationScreenState extends State<DeleteConfirmationScreen> {
+class _DeleteConfirmationScreenState extends State<DeleteConfirmationScreen>
+    with TickerProviderStateMixin {
+  AnimationController? animationController;
   String? _imageURL;
   final ImagePicker _picker = ImagePicker();
   bool _isImagePicked = false;
@@ -33,6 +35,9 @@ class _DeleteConfirmationScreenState extends State<DeleteConfirmationScreen> {
   @override
   void initState() {
     super.initState();
+    animationController =
+        AnimationController(duration: new Duration(seconds: 2), vsync: this);
+    animationController!.repeat();
     setState(() {
       _empName.text = DeleteEmployee.DeleteEmployeeScreen.specific_empName;
       _empId.text = DeleteEmployee.DeleteEmployeeScreen.specific_empId;
@@ -44,11 +49,12 @@ class _DeleteConfirmationScreenState extends State<DeleteConfirmationScreen> {
 
   Widget _addImgCircleAvatar() {
     return CircleAvatar(
-      radius: 80,
-      backgroundColor: Colors.white,
+      radius: 77,
+      backgroundColor: Colors.transparent,
+      backgroundImage: AssetImage("assets/GIFs/Loading.gif"),
       child: CircleAvatar(
           radius: 78,
-          backgroundColor: Color(0xFF004e92),
+          backgroundColor: Colors.transparent,
           backgroundImage: NetworkImage(_imageURL!)),
     );
   }
@@ -230,8 +236,21 @@ class _DeleteConfirmationScreenState extends State<DeleteConfirmationScreen> {
                   ),
                 ),
                 onPressed: () async {
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            valueColor: animationController!.drive(ColorTween(
+                                begin: Colors.lightBlue[600],
+                                end: Colors.lightGreenAccent[400])),
+                          ),
+                        );
+                      });
                   var node_response = await delete_employee(
                       _empName.text.toLowerCase(), _empId.text);
+                  Navigator.pop(context);
                   if (node_response == "Employee Successfully Deleted.") {
                     showSnackBar(context, node_response, Colors.green);
                     DeleteEmployee.DeleteEmployeeScreen.reset_screen();
@@ -293,7 +312,7 @@ class _DeleteConfirmationScreenState extends State<DeleteConfirmationScreen> {
                       Row(
                         children: <Widget>[
                           Padding(
-                            padding: EdgeInsets.only(left: 10),
+                            padding: EdgeInsets.only(left: 15),
                             child: IconButton(
                               padding: EdgeInsets.zero,
                               constraints: BoxConstraints(),
@@ -310,7 +329,7 @@ class _DeleteConfirmationScreenState extends State<DeleteConfirmationScreen> {
                           ),
                           Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.only(right: 35.5),
+                              padding: const EdgeInsets.only(right: 30.5),
                               child: Text(
                                 "Confirmation",
                                 textAlign: TextAlign.center,

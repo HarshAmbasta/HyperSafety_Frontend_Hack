@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hypersafety_frontend_hack">
    <application
-        android:label="hypersafety_frontend_hack"
+        android:label="HyperSafety"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
