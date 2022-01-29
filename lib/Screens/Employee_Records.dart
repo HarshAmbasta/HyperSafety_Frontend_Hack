@@ -15,6 +15,7 @@ import 'package:hypersafety_frontend_hack/Emp_Model/Employee.dart';
 import 'package:hypersafety_frontend_hack/Widgets/Scrollable_Widget.dart';
 import 'package:hypersafety_frontend_hack/Employees_List/Employees_List.dart';
 import 'package:hypersafety_frontend_hack/Employees_List/Exceeded_Warnings_List.dart';
+import 'package:hypersafety_frontend_hack/Screens/Login_Screen.dart';
 
 class FetchEmployeeRecordsScreen extends StatefulWidget {
   @override
@@ -43,6 +44,11 @@ class _FetchEmployeeRecordsScreenState
     var node_response = await display_records(showAll);
 
     if (node_response is String) {
+      if (node_response == "Go To Login Page.") {
+        _navigateToNextScreen(context, LoginScreen());
+        showSnackBar(
+            context, "Session Expired - Please Login Again.", Colors.red);
+      }
       showSnackBar(context, node_response, Colors.red);
     } else {
       setState(() {

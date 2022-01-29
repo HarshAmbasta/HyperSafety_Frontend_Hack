@@ -11,6 +11,7 @@ import 'package:hypersafety_frontend_hack/API_NodeJS/API_NodeJS.dart';
 import 'package:async/async.dart';
 import 'package:hypersafety_frontend_hack/Custom_Library/timer_button.dart';
 import 'package:hypersafety_frontend_hack/Utilities/Utilities.dart';
+import 'package:hypersafety_frontend_hack/Screens/Login_Screen.dart';
 
 class AddEmployeeScreen extends StatefulWidget {
   @override
@@ -174,9 +175,14 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                 File(_imageFile!.path),
                 _empName.text.trimRight().toLowerCase(),
                 _empId.text.trimRight());
+
             if (node_response == "Employee Added Successfully.") {
               showSnackBar(context, node_response, Colors.green);
               reset_screen();
+            } else if (node_response == "Go To Login Page.") {
+              _navigateToNextScreen(context, LoginScreen());
+              showSnackBar(
+                  context, "Session Expired - Please Login Again.", Colors.red);
             } else {
               showSnackBar(context, node_response, Colors.red);
             }
@@ -389,5 +395,10 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
       _imageFile = null;
       _isImagePicked = false;
     });
+  }
+
+  void _navigateToNextScreen(BuildContext context, NewScreen) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => NewScreen));
   }
 }

@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'HR-Tech-Solutions',
+      title: 'HyperSafety-Frontend-Hack',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           // dividerColor: Colors.blueGrey,

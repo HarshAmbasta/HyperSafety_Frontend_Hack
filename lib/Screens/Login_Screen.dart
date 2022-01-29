@@ -5,6 +5,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hypersafety_frontend_hack/API_NodeJS/API_NodeJS.dart';
 import 'package:hypersafety_frontend_hack/Utilities/Utilities.dart';
 import 'package:hypersafety_frontend_hack/Screens/Home_Screen.dart';
 
@@ -14,6 +15,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController admin_email = TextEditingController();
+  TextEditingController admin_pass = TextEditingController();
   Widget _buildEmailTF() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,7 +31,11 @@ class _LoginScreenState extends State<LoginScreen> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+            inputFormatters: [
+              FilteringTextInputFormatter.deny(RegExp('[ ]')),
+            ],
             keyboardType: TextInputType.emailAddress,
+            controller: admin_email,
             style: TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
@@ -66,6 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+            controller: admin_pass,
             obscureText: true,
             style: TextStyle(
               color: Colors.white,
@@ -97,8 +105,15 @@ class _LoginScreenState extends State<LoginScreen> {
       child: RaisedButton(
         splashColor: Colors.lightGreenAccent,
         elevation: 15.0,
-        onPressed: () {
-          _navigateToNextScreen(context, HomeScreen());
+        onPressed: () async {
+          var login_response =
+              await admin_login(admin_email.text, admin_pass.text);
+          if (login_response == "Login Successful.") {
+            _navigateToNextScreen(context, HomeScreen());
+            reset_fields();
+          } else {
+            showSnackBar(context, login_response, Colors.red);
+          }
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
@@ -191,6 +206,25 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void showSnackBar(BuildContext context, String text, Color status) {
+    final snackBar = SnackBar(
+      content: Text(
+        text,
+        textScaleFactor: 1.3,
+      ),
+      backgroundColor: status,
+      duration: Duration(seconds: 2, milliseconds: 560), //default is 4s
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  void reset_fields() {
+    setState(() {
+      admin_email.clear();
+      admin_pass.clear();
+    });
   }
 
   void _navigateToNextScreen(BuildContext context, NewScreen) {
