@@ -6,6 +6,7 @@ import 'package:hypersafety_frontend_hack/Screens/Add_Employee.dart';
 import 'package:hypersafety_frontend_hack/Screens/Delete_Employee.dart';
 import 'package:hypersafety_frontend_hack/Screens/Employee_Records.dart';
 import 'package:hypersafety_frontend_hack/Screens/Reset_Record.dart';
+import 'package:hypersafety_frontend_hack/Screens/Login_Screen.dart';
 
 // flutter run --no-sound-null-safety
 void main() {
@@ -17,19 +18,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'HyperSafety-Frontend-Hack',
+      title: 'HR-Tech-Solutions',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          // brightness: Brightness.light,
-          // primaryColor: Colors.black, //Color(0xff1d2021), Color of Main Screen.
-          // accentColor: Color(0xFF282828),
-          // fontFamily: 'FiraCode',
-          // textTheme: Theme.of(context).textTheme.apply(
-          //   bodyColor: Color(0xff32302f),//Colors.white,
-          //   displayColor: Colors.white, //Color(0xff32302f),
-          // ),
-          ),
-      home: HomeScreen(),
+          // dividerColor: Colors.blueGrey,
+          iconTheme: IconThemeData(color: Colors.white),
+          bottomSheetTheme:
+              BottomSheetThemeData(backgroundColor: Color(0xFF243b55))),
+      home: LoginScreen(),
     );
   }
 }
