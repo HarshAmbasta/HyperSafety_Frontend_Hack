@@ -42,9 +42,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 40.0, height: 40.0),
               ),
               Container(
-                margin: const EdgeInsets.only(left: 10.0),
+                margin: const EdgeInsets.only(left: 20.0),
                 child: Text(
-                  'ADD EMPLOYEE',
+                  'ADD NEW EMPLOYEE',
                   style: TextStyle(
                     color: Color(0xFF527DAA),
                     letterSpacing: 1.25,
@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 40.0, height: 40.0),
               ),
               Container(
-                margin: const EdgeInsets.only(left: 10.0),
+                margin: const EdgeInsets.only(left: 20.0),
                 child: Text(
                   'DELETE EMPLOYEE',
                   style: TextStyle(
@@ -128,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 40.0, height: 40.0),
               ),
               Container(
-                margin: const EdgeInsets.only(left: 10.0),
+                margin: const EdgeInsets.only(left: 20),
                 child: Text(
                   'DISPLAY EMPLOYEES',
                   style: TextStyle(
@@ -171,9 +171,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 40.0, height: 37),
               ),
               Container(
-                margin: const EdgeInsets.only(left: 10.0),
+                margin: const EdgeInsets.only(left: 20.0),
                 child: Text(
-                  'RESET RECORDS',
+                  'RESET WARNINGS',
                   style: TextStyle(
                     color: Color(0xFF527DAA),
                     letterSpacing: 1.25,
@@ -225,44 +225,43 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Container(
-                height: double.infinity,
+                // height: double.infinity,
                 child: SingleChildScrollView(
                   physics: AlwaysScrollableScrollPhysics(),
                   padding:
                       EdgeInsets.symmetric(vertical: 35.0, horizontal: 0.0),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Row(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(45.0, 3.0, 0, 0),
-                            child: Container(
-                              child: Text(
-                                'HyperSafety',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'OpenSans',
-                                  fontSize: 32.0,
-                                  fontWeight: FontWeight.bold,
+                          Container(
+                            padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  'HyperSafety',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'OpenSans',
+                                    fontSize: 32.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                            child: Align(
-                              alignment: Alignment.topRight,
-                              child: IconButton(
-                                color: Colors.amber[900],
-                                icon: Icon(
-                                  Icons.power_settings_new_rounded,
-                                  size: 35.0,
+                                IconButton(
+                                  color: Colors.amber[900],
+                                  icon: Icon(
+                                    Icons.power_settings_new_rounded,
+                                    size: 40.0,
+                                  ),
+                                  onPressed: () {
+                                    _navigateToNextScreen(
+                                        context, LoginScreen());
+                                  },
                                 ),
-                                onPressed: () {
-                                  _navigateToNextScreen(context, LoginScreen());
-                                },
-                              ),
+                              ],
                             ),
                           ),
                         ],
@@ -272,7 +271,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           physics: AlwaysScrollableScrollPhysics(),
                           padding: EdgeInsets.symmetric(
                             horizontal: 40.0,
-                            vertical: 60.0,
+                            vertical: 75.0,
                           ),
                           child: Column(
                             children: <Widget>[

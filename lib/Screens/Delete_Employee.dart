@@ -13,6 +13,7 @@ class DeleteEmployeeScreen extends StatefulWidget {
   static String specific_empName = "";
   static String specific_empId = "";
   static String specific_empWarnings = "";
+  static String specific_empImageURL = "";
   static void reset_screen() {
     specific_empName = "";
     specific_empId = "";
@@ -135,6 +136,8 @@ class _DeleteEmployeeScreenState extends State<DeleteEmployeeScreen> {
                       node_response["EmployeeID"];
                   DeleteEmployeeScreen.specific_empWarnings =
                       node_response["Warnings"].toString();
+                  DeleteEmployeeScreen.specific_empImageURL =
+                      node_response["ImageURL"].toString();
                 });
                 _navigateToNextScreen(context, DeleteConfirmationScreen());
               } else if (node_response == "Go To Login Page.") {

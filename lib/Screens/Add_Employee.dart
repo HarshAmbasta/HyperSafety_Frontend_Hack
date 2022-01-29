@@ -240,9 +240,8 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                 ),
               ),
               Container(
-                height: double.infinity,
                 child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
+                  // physics: AlwaysScrollableScrollPhysics(),
                   padding:
                       EdgeInsets.symmetric(vertical: 35.0, horizontal: 0.0),
                   child: Column(
